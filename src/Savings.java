@@ -53,11 +53,11 @@ public class Savings extends Account
       }
       if(special)
       {
-         balance = balance + (balance * APYS);
+         balance = balance + (balance * APYS) / MONTH_PER_YEAR;
       }
       else
       {
-         balance = balance + (balance * APY);
+         balance = balance + (balance * APY) / MONTH_PER_YEAR;
       }
    }
    

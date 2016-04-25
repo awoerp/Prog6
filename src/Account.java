@@ -105,11 +105,6 @@ public abstract class Account
    
    public void debit(double amount) //subtract the amount from the balance
    {
-      Object a = this.getClass();
-      if(a instanceof MoneyMarket)
-      {
-
-      }
       balance -= amount;
    }
    

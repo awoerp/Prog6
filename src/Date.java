@@ -21,18 +21,7 @@ public class Date implements Comparable
    */
    public int compareTo(Object obj)
    {
-      Date temp = (Date) obj;
-      int compare = this.compareTo(temp);
-      if(this.compareTo(temp) > 0)
-      {
-         return 1;
-      }
-      else if(this.compareTo(temp) < 0)
-      {
-         return -1;
-      }
-      else
-         return 0;
+
    }
    
    /**

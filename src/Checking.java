@@ -60,7 +60,7 @@ public class Checking extends Account
             balance -= FEE;
          }
       }
-      balance = balance + (balance * APY);
+      balance = balance + (balance * APY) / MONTH_PER_YEAR;
    }
    
    /**

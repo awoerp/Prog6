@@ -189,7 +189,7 @@ public class BankDataBase
    {
       for(int i = 0; i < num; i++)
       {
-         if(d.compareTo(bank[i].getDate()) == -1)
+         if(bank[i].openOn.compareTo(d) == -1)
          {
             bank[i].toString();
          }
@@ -200,5 +200,10 @@ public class BankDataBase
    {
    for(int i = 0; i < num; i++)
       bank[i].applyInterestAndFee();
+   }
+   
+   public void moneyMarketWithdrawals()
+   {
+      
    }
 }

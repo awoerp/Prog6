@@ -607,14 +607,14 @@ public class TransactionManager extends javax.swing.JFrame {
          {
             StringTokenizer tk = new StringTokenizer(temp,",");
             String tempToken = tk.nextToken();
+            String name = tk.nextToken();
+            String phone = tk.nextToken();
+            StringTokenizer phoneSplit = new StringTokenizer(phone, "-");
+            phone = phoneSplit.nextToken() + phoneSplit.nextToken();
+            Float balance = Float.parseFloat(tk.nextToken());
+            Date date = new Date(tk.nextToken());
             if(tempToken.equals("C"))
             {
-               String name = tk.nextToken();
-               String phone = tk.nextToken();
-               StringTokenizer phoneSplit = new StringTokenizer(phone, "-");
-               phone = phoneSplit.nextToken() + phoneSplit.nextToken();
-               Float balance = Float.parseFloat(tk.nextToken());
-               Date date = new Date(tk.nextToken());
                Boolean dd = Boolean.parseBoolean(tk.nextToken());
                Checking c = new Checking(name, phone, balance, date, dd);
                if(!data.contains(c))
@@ -630,12 +630,6 @@ public class TransactionManager extends javax.swing.JFrame {
             }
             else if(tempToken.equals("S"))
             {
-               String name = tk.nextToken();
-               String phone = tk.nextToken();
-               StringTokenizer phoneSplit = new StringTokenizer(phone, "-");
-               phone = phoneSplit.nextToken() + phoneSplit.nextToken();
-               Float balance = Float.parseFloat(tk.nextToken());
-               Date date = new Date(tk.nextToken());
                Boolean ss = Boolean.parseBoolean(tk.nextToken());
                Savings s = new Savings(name, phone, balance, date, ss);
                if(!data.contains(s))
@@ -651,12 +645,6 @@ public class TransactionManager extends javax.swing.JFrame {
             }
             else if(tempToken.equals("M"))
             {
-               String name = tk.nextToken();
-               String phone = tk.nextToken();
-               StringTokenizer phoneSplit = new StringTokenizer(phone, "-");
-               phone = phoneSplit.nextToken() + phoneSplit.nextToken();
-               Float balance = Float.parseFloat(tk.nextToken());
-               Date date = new Date(tk.nextToken());
                MoneyMarket m = new MoneyMarket(name, phone, balance, date);
                if(!data.contains(m))
                {
@@ -733,8 +721,14 @@ public class TransactionManager extends javax.swing.JFrame {
          String text = this.transactionAmount.getText();
          if(text.equals(""))
             text = "0";
+         boolean mm = false;
          Double transactionAmount = Double.parseDouble(text);
+
          selected.debit(transactionAmount);
+         if(list.getSelectedValue() instanceof MoneyMarket)
+         {
+            
+         }
       }
       catch(java.lang.NumberFormatException e)
       {
