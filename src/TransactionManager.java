@@ -76,7 +76,7 @@ public class TransactionManager extends javax.swing.JFrame {
       statisticsArea = new javax.swing.JTextArea();
       showAccounts = new javax.swing.JButton();
       jLabel9 = new javax.swing.JLabel();
-      jTextField2 = new javax.swing.JTextField();
+      DateTextField = new javax.swing.JTextField();
       jLabel10 = new javax.swing.JLabel();
 
       jRadioButton4.setText("Checking");
@@ -155,6 +155,11 @@ public class TransactionManager extends javax.swing.JFrame {
       });
 
       runMonthlyInterestAndFees.setText("Run Monthly Interest and Fees");
+      runMonthlyInterestAndFees.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            runMonthlyInterestAndFeesActionPerformed(evt);
+         }
+      });
 
       deposit.setText("Deposit");
       deposit.addActionListener(new java.awt.event.ActionListener() {
@@ -325,7 +330,7 @@ public class TransactionManager extends javax.swing.JFrame {
       statisticsArea.setRows(5);
       jScrollPane1.setViewportView(statisticsArea);
 
-      showAccounts.setText("Show All Accounts - We don't need this");
+      showAccounts.setText("Show Accounts");
       showAccounts.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             showAccountsActionPerformed(evt);
@@ -333,8 +338,6 @@ public class TransactionManager extends javax.swing.JFrame {
       });
 
       jLabel9.setText("Show Accounts Opend Before:");
-
-      jTextField2.setText("jTextField2");
 
       jLabel10.setText("(mm/dd/yy)");
 
@@ -376,7 +379,7 @@ public class TransactionManager extends javax.swing.JFrame {
                      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -411,7 +414,7 @@ public class TransactionManager extends javax.swing.JFrame {
                .addComponent(showAccounts, javax.swing.GroupLayout.Alignment.TRAILING)
                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                   .addComponent(jLabel9)
-                  .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(DateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(jLabel10)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,7 +482,7 @@ public class TransactionManager extends javax.swing.JFrame {
                                              phoneNumberFieldText));
          if(added)
          {
-            printAddedSuccessfully(data.peek());
+            //printAddedSuccessfully(data.peek());
             dateOpenedField.setText(data.printDateMostRecent());
             accountNumberField.setText(Integer.toString(data.recentAccNum()));
             visualData.add(data.peek());
@@ -494,72 +497,20 @@ public class TransactionManager extends javax.swing.JFrame {
     * @param evt 
     */
    private void closeAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeAccountActionPerformed
-      /**
-      String nameFieldText = nameField.getText();
-      statisticsArea.setText(null);
-      String phoneNumberFieldText = phoneNumberField.getText();
-      boolean removed = false;
-      dateOpenedField.setText(null);
-      accountNumberField.setText(null);
-      Account dumbyAccount = getDumbyAccount(nameFieldText, phoneNumberFieldText);
-      statisticsArea.removeAll();
-      if(isValid(dumbyAccount, false))
-      {
-         if(data.contains(dumbyAccount))
-         {
-            if(checking.isSelected())
-            {
-               if(dumbyAccount instanceof Checking)
-                  removed = data.remove(dumbyAccount);
-            }
-            else if(savings.isSelected())
-            {
-               if(dumbyAccount instanceof Savings)
-                  removed = data.remove(dumbyAccount);
-            }
-            else if(moneyMarket.isSelected())
-            {
-               if(dumbyAccount instanceof MoneyMarket)
-                  removed = data.remove(dumbyAccount);
-            }
-            if(removed)
-               printRemovedSuccessfully(dumbyAccount);
-         }
-         else
-            JOptionPane.showMessageDialog(new JFrame(),
-                                       "Account Not Found",
-                                       "Dialog",
-                                       JOptionPane.ERROR_MESSAGE);
-      }
-      */
-      
       Object selected = list.getSelectedValue();
-      visualData.remove(selected);
-      data.remove((Account) selected);
-      list.setListData(visualData);
-      
-      
+      if(selected == null)
+      {
+         //potential Pop Up Window?
+      }
+      else
+      {
+         visualData.remove(selected);
+         data.remove((Account) selected);
+         list.setListData(visualData);
+      }
    }//GEN-LAST:event_closeAccountActionPerformed
 
-   
-   /**
-    * prints successful remove message
-    * @param temp Account Object
-    */
-   private void printRemovedSuccessfully(Account temp)
-   {
-      statisticsArea.append("Account: " + temp.getAccountNum() + " Has been closed.\n");
-   }
-   
-   /**
-    * prints successful add message
-    * @param temp Account Object
-    */
-   private void printAddedSuccessfully(Account temp)
-   {
-      statisticsArea.append("Account: " + temp.getAccountNum() + " Has been opened.\n");
-   }
-   
+  
    /**
     * Creates a dummy account based on what button is pressed
     * @param name String
@@ -666,8 +617,16 @@ public class TransactionManager extends javax.swing.JFrame {
                Date date = new Date(tk.nextToken());
                Boolean dd = Boolean.parseBoolean(tk.nextToken());
                Checking c = new Checking(name, phone, balance, date, dd);
-               visualData.add(c);
-               data.add(c);
+               if(!data.contains(c))
+               {
+                  visualData.add(c);
+                  data.add(c);
+               }
+               else
+               {
+                  c.decreaseNumberOfAccounts();
+                  temp = null; 
+               }
             }
             else if(tempToken.equals("S"))
             {
@@ -679,8 +638,16 @@ public class TransactionManager extends javax.swing.JFrame {
                Date date = new Date(tk.nextToken());
                Boolean ss = Boolean.parseBoolean(tk.nextToken());
                Savings s = new Savings(name, phone, balance, date, ss);
-               visualData.add(s);
-               data.add(s);
+               if(!data.contains(s))
+               {
+                  visualData.add(s);
+                  data.add(s);
+               }
+               else
+               {
+                  s.decreaseNumberOfAccounts();
+                  temp = null;
+               }
             }
             else if(tempToken.equals("M"))
             {
@@ -691,8 +658,16 @@ public class TransactionManager extends javax.swing.JFrame {
                Float balance = Float.parseFloat(tk.nextToken());
                Date date = new Date(tk.nextToken());
                MoneyMarket m = new MoneyMarket(name, phone, balance, date);
-               visualData.add(m);
-               data.add(m);
+               if(!data.contains(m))
+               {
+                  visualData.add(m);
+                  data.add(m);
+               }
+               else
+               {
+                  m.decreaseNumberOfAccounts();
+                  temp = null;
+               }
             }
             temp = stdin.readLine();
          }
@@ -739,6 +714,7 @@ public class TransactionManager extends javax.swing.JFrame {
          
       }
       list.setListData(visualData);
+      transactionAmount.setText(null);
    }//GEN-LAST:event_depositActionPerformed
 
    private void withdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawActionPerformed
@@ -776,7 +752,7 @@ public class TransactionManager extends javax.swing.JFrame {
          
       }
       list.setListData(visualData);
-      
+      transactionAmount.setText(null);
    }//GEN-LAST:event_withdrawActionPerformed
 
    /**
@@ -784,16 +760,13 @@ public class TransactionManager extends javax.swing.JFrame {
     * @param evt 
     */
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
-
-      accountNumberField.setText(null);
-      statisticsArea.setText(null);
-      dateOpenedField.setText(null);
-      if(data.size() == 0)
-      statisticsArea.setText("There are no active accounts.");
-      else
-      statisticsArea.append(data.toString());
-
+      data.compareDates(new Date(this.DateTextField.getText()));
    }//GEN-LAST:event_showAccountsActionPerformed
+
+   private void runMonthlyInterestAndFeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runMonthlyInterestAndFeesActionPerformed
+      data.runFeesAndInterest();
+      list.setListData(visualData);
+   }//GEN-LAST:event_runMonthlyInterestAndFeesActionPerformed
    
    /**
     * checks if the name is valid. it must be composed of just letters
@@ -832,6 +805,7 @@ public class TransactionManager extends javax.swing.JFrame {
    }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JTextField DateTextField;
    private javax.swing.JTextField accountNumberField;
    private javax.swing.ButtonGroup accountTypeGroup;
    private javax.swing.JTextField balanceField;
@@ -857,7 +831,6 @@ public class TransactionManager extends javax.swing.JFrame {
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JScrollPane jScrollPane2;
    private javax.swing.JTextField jTextField1;
-   private javax.swing.JTextField jTextField2;
    private javax.swing.JTextField jTextField5;
    private javax.swing.JList list;
    private javax.swing.JButton loadAccounts;

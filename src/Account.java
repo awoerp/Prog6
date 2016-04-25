@@ -105,11 +105,21 @@ public abstract class Account
    
    public void debit(double amount) //subtract the amount from the balance
    {
+      Object a = this.getClass();
+      if(a instanceof MoneyMarket)
+      {
+
+      }
       balance -= amount;
    }
    
    public void credit(double amount) //add the amount to the balance
    {
       balance += amount;
+   }
+   
+   public Date getDate()
+   {
+      return openOn;
    }
 }

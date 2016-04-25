@@ -41,14 +41,20 @@ public class MoneyMarket extends Account
       super.decreaseNumberOfAccounts();
    }
    
-   /**
-    * unused in program 5
-    */
+
    public void applyInterestAndFee()
    {
-      
+      if(balance < MIN_BAL)
+      {
+         balance -= FEE;
+      }
+      balance = balance + (balance * APY);
    }
    
+   public void incrementWithdrawals()
+   {
+      withdrawals++;
+   }
     /**
     * returns the account information as a string
     * @return String

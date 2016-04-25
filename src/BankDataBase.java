@@ -184,4 +184,21 @@ public class BankDataBase
    {
       
    }
+   
+   public void compareDates(Date d)
+   {
+      for(int i = 0; i < num; i++)
+      {
+         if(d.compareTo(bank[i].getDate()) == -1)
+         {
+            bank[i].toString();
+         }
+      }
+   }
+   
+   public void runFeesAndInterest()
+   {
+   for(int i = 0; i < num; i++)
+      bank[i].applyInterestAndFee();
+   }
 }

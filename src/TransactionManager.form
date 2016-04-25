@@ -87,7 +87,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
+                              <Component id="DateTextField" min="-2" pref="69" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -133,7 +133,7 @@
                   <Component id="showAccounts" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                       <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="DateTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -300,6 +300,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Run Monthly Interest and Fees"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="runMonthlyInterestAndFeesActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deposit">
           <Properties>
@@ -516,7 +519,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="showAccounts">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Show All Accounts - We don&apos;t need this"/>
+        <Property name="text" type="java.lang.String" value="Show Accounts"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showAccountsActionPerformed"/>
@@ -527,10 +530,7 @@
         <Property name="text" type="java.lang.String" value="Show Accounts Opend Before:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jTextField2"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="DateTextField">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>

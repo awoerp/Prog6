@@ -36,7 +36,6 @@ public class Checking extends Account
       directDeposit = dd;
    }
    
-   
    /**
     * Creates a checking object without increasing the account number
     * @param name String
@@ -54,7 +53,14 @@ public class Checking extends Account
     */
    public void applyInterestAndFee()
    {
-      
+      if(!directDeposit)
+      {
+         if(balance < MIN_BAL)
+         {
+            balance -= FEE;
+         }
+      }
+      balance = balance + (balance * APY);
    }
    
    /**

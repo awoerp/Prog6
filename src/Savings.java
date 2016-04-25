@@ -7,6 +7,7 @@ public class Savings extends Account
 {
    private static final int FEE = 5;
    private static final double APY = .25;
+   private static final double APYS = .35;
    private static final double MIN_BAL = 300;
    private boolean special; // the interest rate is .35 if this is true
    
@@ -46,7 +47,18 @@ public class Savings extends Account
     */
    public void applyInterestAndFee()
    {
-      
+      if(balance < MIN_BAL)
+      {
+         balance -= FEE;
+      }
+      if(special)
+      {
+         balance = balance + (balance * APYS);
+      }
+      else
+      {
+         balance = balance + (balance * APY);
+      }
    }
    
    /**
