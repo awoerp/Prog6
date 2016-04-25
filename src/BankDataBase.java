@@ -182,7 +182,8 @@ public class BankDataBase
    
    public void runInterest() //applyInterestAndFee() for everyone
    {
-      
+      for(int i = 0; i < num; i++)
+   bank[i].applyInterestAndFee();
    }
    
    public void compareDates(Date d)
@@ -196,11 +197,7 @@ public class BankDataBase
       }
    }
    
-   public void runFeesAndInterest()
-   {
-   for(int i = 0; i < num; i++)
-      bank[i].applyInterestAndFee();
-   }
+
    
    public void moneyMarketWithdrawals()
    {

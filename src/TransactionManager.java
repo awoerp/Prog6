@@ -723,12 +723,12 @@ public class TransactionManager extends javax.swing.JFrame {
             text = "0";
          boolean mm = false;
          Double transactionAmount = Double.parseDouble(text);
-
-         selected.debit(transactionAmount);
          if(list.getSelectedValue() instanceof MoneyMarket)
          {
             
          }
+         selected.debit(transactionAmount);
+
       }
       catch(java.lang.NumberFormatException e)
       {
@@ -758,7 +758,7 @@ public class TransactionManager extends javax.swing.JFrame {
    }//GEN-LAST:event_showAccountsActionPerformed
 
    private void runMonthlyInterestAndFeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runMonthlyInterestAndFeesActionPerformed
-      data.runFeesAndInterest();
+      data.runInterest();
       list.setListData(visualData);
    }//GEN-LAST:event_runMonthlyInterestAndFeesActionPerformed
    
