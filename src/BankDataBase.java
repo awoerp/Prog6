@@ -204,8 +204,12 @@ public class BankDataBase
    
 
    
-   public void moneyMarketWithdrawals()
+   public boolean moneyMarketWithdrawals(MoneyMarket a)
    {
-      
+      if(a.incrementWithdrawals())
+      {
+         return true;
+      }
+      return false;
    }
 }

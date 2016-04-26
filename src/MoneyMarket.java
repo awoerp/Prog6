@@ -53,9 +53,13 @@ public class MoneyMarket extends Account
       balance = balance + (balance * APY) / MONTH_PER_YEAR;
    }
    
-   public void incrementWithdrawals()
+   public boolean incrementWithdrawals()
    {
       withdrawals++;
+      if(withdrawals <= WITHDRAW_LIMIT)
+         return true;
+      withdrawals--;
+      return false;
    }
     /**
     * returns the account information as a string

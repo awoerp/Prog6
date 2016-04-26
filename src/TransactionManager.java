@@ -261,6 +261,12 @@ public class TransactionManager extends javax.swing.JFrame {
 
       jLabel3.setText("Transaction Amount:");
 
+      transactionAmount.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            transactionAmountActionPerformed(evt);
+         }
+      });
+
       javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
       jPanel3.setLayout(jPanel3Layout);
       jPanel3Layout.setHorizontalGroup(
@@ -339,7 +345,7 @@ public class TransactionManager extends javax.swing.JFrame {
 
       jLabel9.setText("Show Accounts Opend Before:");
 
-      jLabel10.setText("(mm/dd/yy)");
+      jLabel10.setText("(mm/dd/yyyy)");
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
@@ -702,7 +708,7 @@ public class TransactionManager extends javax.swing.JFrame {
          
       }
       list.setListData(visualData);
-      transactionAmount.setText(null);
+      //transactionAmount.setText(null);
    }//GEN-LAST:event_depositActionPerformed
 
    private void withdrawActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawActionPerformed
@@ -725,9 +731,23 @@ public class TransactionManager extends javax.swing.JFrame {
          Double transactionAmount = Double.parseDouble(text);
          if(list.getSelectedValue() instanceof MoneyMarket)
          {
-            
+            mm = data.moneyMarketWithdrawals((MoneyMarket) list.getSelectedValue());
+            if(mm)
+            {
+               selected.debit(transactionAmount);
+            }
+            else
+            {
+               JOptionPane.showMessageDialog(new JFrame(),
+                              "Maximum Number of Withdrawals Reached",
+                              "ERROR",
+                              JOptionPane.ERROR_MESSAGE);
+            }
          }
-         selected.debit(transactionAmount);
+         else
+         {
+            selected.debit(transactionAmount);
+         }
 
       }
       catch(java.lang.NumberFormatException e)
@@ -746,7 +766,7 @@ public class TransactionManager extends javax.swing.JFrame {
          
       }
       list.setListData(visualData);
-      transactionAmount.setText(null);
+      //transactionAmount.setText(null);
    }//GEN-LAST:event_withdrawActionPerformed
 
    /**
@@ -797,6 +817,10 @@ public class TransactionManager extends javax.swing.JFrame {
       data.runInterest();
       list.setListData(visualData);
    }//GEN-LAST:event_runMonthlyInterestAndFeesActionPerformed
+
+   private void transactionAmountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionAmountActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_transactionAmountActionPerformed
    
    /**
     * checks if the name is valid. it must be composed of just letters
