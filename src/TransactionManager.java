@@ -757,30 +757,20 @@ public class TransactionManager extends javax.swing.JFrame {
       
       String printString = "";
       String printHeader = "";
-      try
+      Date testDate = new Date(this.DateTextField.getText());
+      Vector accounts = data.compareDates(testDate);
+      
+      for(int i = 0; i < accounts.size(); i++)
       {
-         Date testDate = new Date(this.DateTextField.getText());
-         Vector accounts = data.compareDates(testDate);
-         for(int i = 0; i < accounts.size(); i++)
-         {
-            printString += accounts.get(i).toString() + "\n";
-         }
-         if(accounts.size() == 0)
-            printHeader = "No accounts opened prior to " + testDate.toString() + "\n";
-         else
-            printHeader = "Accounts opened prior to " + testDate.toString() + " :\n";
-         statisticsArea.setText(printHeader + printString);
+         printString += accounts.get(i).toString() + "\n";
       }
-      catch(java.util.NoSuchElementException e)
-      {
-         JOptionPane.showMessageDialog(new JFrame(),
-                              "Date Format Error",
-                              "ERROR",
-                              JOptionPane.ERROR_MESSAGE);
-      }
+      if(accounts.size() == 0)
+         printHeader = "No accounts opened prior to " + testDate.toString() + "\n";
+      else
+         printHeader = "Accounts opened prior to " + testDate.toString() + " :\n";
       
       
-
+      statisticsArea.setText(printHeader + printString);
       
    }//GEN-LAST:event_showAccountsActionPerformed
 
