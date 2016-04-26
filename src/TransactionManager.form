@@ -519,7 +519,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="showAccounts">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Show Accounts"/>
+        <Property name="text" type="java.lang.String" value="Search Accounts"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showAccountsActionPerformed"/>

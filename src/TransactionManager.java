@@ -330,7 +330,7 @@ public class TransactionManager extends javax.swing.JFrame {
       statisticsArea.setRows(5);
       jScrollPane1.setViewportView(statisticsArea);
 
-      showAccounts.setText("Show Accounts");
+      showAccounts.setText("Search Accounts");
       showAccounts.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             showAccountsActionPerformed(evt);
@@ -754,7 +754,24 @@ public class TransactionManager extends javax.swing.JFrame {
     * @param evt 
     */
    private void showAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAccountsActionPerformed
-      data.compareDates(new Date(this.DateTextField.getText()));
+      
+      String printString = "";
+      String printHeader = "";
+      Date testDate = new Date(this.DateTextField.getText());
+      Vector accounts = data.compareDates(testDate);
+      
+      for(int i = 0; i < accounts.size(); i++)
+      {
+         printString += accounts.get(i).toString() + "\n";
+      }
+      if(accounts.size() == 0)
+         printHeader = "No accounts opened prior to " + testDate.toString() + "\n";
+      else
+         printHeader = "Accounts opened prior to " + testDate.toString() + " :\n";
+      
+      
+      statisticsArea.setText(printHeader + printString);
+      
    }//GEN-LAST:event_showAccountsActionPerformed
 
    private void runMonthlyInterestAndFeesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runMonthlyInterestAndFeesActionPerformed

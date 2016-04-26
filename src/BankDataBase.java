@@ -3,6 +3,8 @@
  * contains, grow, and several methods that return information as strings.
  * @author SteveWoerpel & Andy Woerpel
  */
+import java.util.Vector;
+
 public class BankDataBase 
 {
    private static final int GROW_SIZE = 2; //initial size and grow size
@@ -186,15 +188,18 @@ public class BankDataBase
    bank[i].applyInterestAndFee();
    }
    
-   public void compareDates(Date d)
+   public Vector compareDates(Date d)
    {
+      Vector<Account> accountsLessThanDate = new Vector<Account>();
       for(int i = 0; i < num; i++)
       {
-         if(bank[i].openOn.compareTo(d) == -1)
+         int comparisonValue = bank[i].openOn.compareTo(d);
+         if(comparisonValue < 0.0)
          {
-            bank[i].toString();
+            accountsLessThanDate.add(bank[i]);
          }
       }
+      return accountsLessThanDate;
    }
    
 

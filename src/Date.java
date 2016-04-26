@@ -7,6 +7,7 @@
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.StringTokenizer;
+
 public class Date implements Comparable
 {
    public static final int MONTHS_IN_YEAR = 12;
@@ -21,7 +22,13 @@ public class Date implements Comparable
    */
    public int compareTo(Object obj)
    {
-
+      Date dateObj = (Date) obj;
+      java.util.Date thisDate = new java.util.Date(year, month, day);
+      java.util.Date testDate = new java.util.Date(dateObj.year,
+                                                   dateObj.month,
+                                                   dateObj.day);
+      int returnVal = thisDate.compareTo(testDate);
+      return returnVal;
    }
    
    /**
