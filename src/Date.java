@@ -20,16 +20,7 @@ public class Date implements Comparable
    to o return 0; if “this” is after o, return 1.
    * 
    */
-   public int compareTo(Object obj)
-   {
-      Date dateObj = (Date) obj;
-      java.util.Date thisDate = new java.util.Date(year, month, day);
-      java.util.Date testDate = new java.util.Date(dateObj.year,
-                                                   dateObj.month,
-                                                   dateObj.day);
-      int returnVal = thisDate.compareTo(testDate);
-      return returnVal;
-   }
+
    
    /**
     * creates new date based on the actual current date.
@@ -51,7 +42,7 @@ public class Date implements Comparable
       month = Integer.parseInt(st.nextToken());
       day = Integer.parseInt(st.nextToken());
       year = Integer.parseInt(st.nextToken()); 
-      //use StringTokenizer to parse the String      
+      //use StringTokenizer to parse the String
    }
    
    /**
@@ -129,5 +120,16 @@ public class Date implements Comparable
                  temp.year == year);
       }
       return false;
-   }  
+   }
+   
+   public int compareTo(Object obj)
+   {
+      Date dateObj = (Date) obj;
+      java.util.Date thisDate = new java.util.Date(year, month, day);
+      java.util.Date testDate = new java.util.Date(dateObj.year,
+                                                   dateObj.month,
+                                                   dateObj.day);
+      int returnVal = thisDate.compareTo(testDate);
+      return returnVal;
+   }
 }
