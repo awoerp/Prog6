@@ -760,16 +760,25 @@ public class TransactionManager extends javax.swing.JFrame {
       try
       {
          Date testDate = new Date(this.DateTextField.getText());
-         Vector accounts = data.compareDates(testDate);
-         for(int i = 0; i < accounts.size(); i++)
+         if(testDate.isValid())
          {
-            printString += accounts.get(i).toString() + "\n";
+            Vector accounts = data.compareDates(testDate);
+            for(int i = 0; i < accounts.size(); i++)
+            {
+               printString += accounts.get(i).toString() + "\n";
+            }
+            if(accounts.size() == 0)
+               printHeader = "No accounts opened prior to " + testDate.toString() + "\n";
+            else
+               printHeader = "Accounts opened prior to " + testDate.toString() + " :\n";
+            statisticsArea.setText(printHeader + printString);
          }
-         if(accounts.size() == 0)
-            printHeader = "No accounts opened prior to " + testDate.toString() + "\n";
          else
-            printHeader = "Accounts opened prior to " + testDate.toString() + " :\n";
-         statisticsArea.setText(printHeader + printString);
+            JOptionPane.showMessageDialog(new JFrame(),
+                     "Invalid Date",
+                     "ERROR",
+                     JOptionPane.ERROR_MESSAGE);
+            
       }
       catch(java.util.NoSuchElementException e)
       {
