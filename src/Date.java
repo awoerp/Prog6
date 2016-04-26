@@ -14,12 +14,6 @@ public class Date implements Comparable
    private int  day;
    private int  month;
    private int  year;
-   
-   /**
-   Compare “this” with (Date) o; if “this” is before o, return -1; if “this” is equal
-   to o return 0; if “this” is after o, return 1.
-   * 
-   */
 
    
    /**
@@ -122,6 +116,11 @@ public class Date implements Comparable
       return false;
    }
    
+   /**
+   Compare “this” with (Date) o; if “this” is before o, return -1; if “this” is equal
+   to o return 0; if “this” is after o, return 1.
+   * 
+   */
    public int compareTo(Object obj)
    {
       Date dateObj = (Date) obj;
