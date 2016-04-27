@@ -22,7 +22,15 @@ public class MoneyMarket extends Account
       super(name, phone);
       withdrawals = 0;
    }
-   
+    
+    /**
+    * This creates an object based on a name, phone number, initial 
+    * balance, and date opened.
+    * @param name string
+    * @param phone string
+    * @param balance float
+    * @param d Date
+    */
    public MoneyMarket(String name, String phone, float balance, Date d)
    {
       super(name, phone, balance, d);
@@ -42,17 +50,26 @@ public class MoneyMarket extends Account
    }
    
    /**
+    * applies interest to the account based on the interest rate,
+    * also deducts a fee if balance is less than the minimum balance.
     * 
     */
    public void applyInterestAndFee()
    {
-      if(balance < MIN_BAL)
+      if(balance > 0)
       {
-         balance -= FEE;
+         if(balance < MIN_BAL)
+         {
+            balance -= FEE;
+         }
+         balance = balance + (balance * APY) / MONTH_PER_YEAR;
       }
-      balance = balance + (balance * APY) / MONTH_PER_YEAR;
    }
    
+   /**
+    * increases the number of withdrawals
+    * @return true if the number is below the limit, false if not.
+    */
    public boolean incrementWithdrawals()
    {
       withdrawals++;
@@ -61,23 +78,19 @@ public class MoneyMarket extends Account
       withdrawals--;
       return false;
    }
+
     /**
-    * returns the account information as a string
-    * @return String
+    * converts the account number, account type, date opened, and balance
+    * to a string. Also says the current number of withdrawals.
+    * @return string
     */
-   /**
    public String toString()
    {
-      return("Account number:      " + Integer.toString(accNumber) + "\n" 
-              + holder.toString() +
-             "Account Type:            Money Market" + "\n" +
-             "Date Opened:            " + openOn.toString());
-   }
-   */
-   
-   public String toString()
-   {
-      return(holder.toString() + "AccNum: " + Integer.toString(accNumber) + " Type: Money Market " + "**" + openOn.toString() + " Balance: " + Double.toString(balance));      
+      return(holder.toString() +
+      "AccNum: " + Integer.toString(accNumber) + 
+      " Type: Money Market " + "**" + openOn.toString() + 
+      " Balance: " + Double.toString(balance) + 
+      "**Withdrawals: " + withdrawals);      
    }
    
 }

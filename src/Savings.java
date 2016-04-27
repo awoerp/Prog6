@@ -36,6 +36,15 @@ public class Savings extends Account
       super.decreaseNumberOfAccounts();
    }
    
+   /**
+    * This creates an object based on a name, phone number, initial 
+    * balance, date opened, and if it is direct deposit or not
+    * @param name string
+    * @param phone string
+    * @param balance float
+    * @param d Date
+    * @param ss boolean
+    */
    public Savings(String name, String phone, float balance, Date d,  boolean ss)
    {
       super(name, phone, balance, d);
@@ -43,43 +52,35 @@ public class Savings extends Account
    }
    
    /**
-    * unused in program 5
+    * applies interest to the account based on the interest rate,
+    * also deducts a fee if balance is less than the minimum balance.
+    * If it is a special savings account, there is a different interest
+    * rate.
     */
    public void applyInterestAndFee()
    {
-      if(balance < MIN_BAL)
+      if(balance > 0)
       {
-         balance -= FEE;
-      }
-      if(special)
-      {
-         balance = balance + (balance * APYS) / MONTH_PER_YEAR;
-      }
-      else
-      {
-         balance = balance + (balance * APY) / MONTH_PER_YEAR;
+         if(balance < MIN_BAL)
+         {
+            balance -= FEE;
+         }
+         if(special)
+         {
+            balance = balance + (balance * APYS) / MONTH_PER_YEAR;
+         }
+         else
+         {
+            balance = balance + (balance * APY) / MONTH_PER_YEAR;
+         }
       }
    }
    
    /**
-    * returns the account information as a string
-    * @return String
-    */   
-   /**public String toString()
-   {
-      String specialAccount;
-      if(special)
-         specialAccount = "Yes";
-      else 
-         specialAccount = "No";
-      return("Account number:      " + Integer.toString(accNumber) + "\n"
-              + holder.toString() +
-             "Account Type:            Savings" + "\n" +
-             "Date Opened:            " + openOn.toString() + "\n" +
-             "Special Account:        " + specialAccount);
-   }
-   */
-   
+    * converts the account number, account type, date opened, and balance
+    * to a string. Also says if it is a special savings account.
+    * @return string
+    */
    public String toString()
    {
       String specialAccount;
@@ -87,7 +88,11 @@ public class Savings extends Account
          specialAccount = "special";
       else
          specialAccount = "regular";
-      return(holder.toString() + "AccNum: " + Integer.toString(accNumber) + " Type: Savings " + "**" + openOn.toString() + "**" + specialAccount + " Balance: " + Double.toString(balance));
+      return(holder.toString() + "AccNum: " + 
+         Integer.toString(accNumber) + 
+         " Type: Savings " + "**" + openOn.toString() + 
+         "**" + specialAccount + 
+         " Balance: " + Double.toString(balance));
                  
    }
 }

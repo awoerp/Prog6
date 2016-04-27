@@ -24,10 +24,12 @@ public class Checking extends Account
    }
    
     /**
-    * This creates an object based on a name, phone number, and the 
-    * option of having direct deposit.
+    * This creates an object based on a name, phone number, initial 
+    * balance, date opened, and if it is direct deposit or not
     * @param name string
     * @param phone string
+    * @param balance float
+    * @param d Date
     * @param dd boolean
     */
    public Checking(String name, String phone, float balance, Date d,  boolean dd)
@@ -49,41 +51,30 @@ public class Checking extends Account
    }
    
    /**
-    * unused in program 5
+    * applies interest to the account based on the interest rate,
+    * also deducts a fee if balance is less than the minimum balance.
+    * If there is direct deposit, there is not fee.
     */
    public void applyInterestAndFee()
    {
-      if(!directDeposit)
+      if(balance > 0)
       {
-         if(balance < MIN_BAL)
+         if(!directDeposit)
          {
-            balance -= FEE;
+            if(balance < MIN_BAL)
+            {
+               balance -= FEE;
+            }
          }
+         balance = balance + (balance * APY) / MONTH_PER_YEAR;
       }
-      balance = balance + (balance * APY) / MONTH_PER_YEAR;
    }
-   
+
    /**
-    * returns the account information as a string
-    * @return String
+    * converts the account number, account type, date opened, and balance
+    * to a string. Also says if it has direct deposit.
+    * @return string
     */
-   /**
-   public String toString()
-   {
-      String deposit;
-      if(directDeposit)
-         deposit = "Yes";
-      else 
-         deposit = "No";
-      
-      return("Account number:      " + Integer.toString(accNumber) + "\n" 
-              + holder.toString() +
-             "Account Type:            Checking" + "\n" +
-             "Date Opened:            " + openOn.toString() + "\n" +
-             "Direct Deposit:          " + deposit);
-   } 
-   * */
-   
    public String toString()
    {
       String deposit;
@@ -91,7 +82,11 @@ public class Checking extends Account
          deposit = "Direct Deposit";
       else
          deposit = "Regular";
-      return(holder.toString() + "AccNum: " + Integer.toString(accNumber) + " Type: Checking " + "**" + openOn.toString() + "**" + deposit + " Balance: " + Double.toString(balance));
-                 
+      return(holder.toString() + "AccNum: " + 
+         Integer.toString(accNumber) + 
+         " Type: Checking " + 
+         "**" + openOn.toString() + 
+         "**" + deposit + 
+         " Balance: " + Double.toString(balance));         
    }
 }

@@ -59,32 +59,36 @@ public class Date implements Comparable
     */
    public boolean isValid()
    {
-      if((day > 0 && day <= Month.DAYS_ODD) && 
-         (month > 0 && month <= MONTHS_IN_YEAR))
+      if(year > 0 && year < 2100)
       {
-         if(month == Month.JAN || month == Month.MAR ||
-            month == Month.MAY || month == Month.JUL ||
-            month == Month.AUG || month == Month.OCT || month == Month.DEC)
+         if((day > 0 && day <= Month.DAYS_ODD) && 
+            (month > 0 && month <= MONTHS_IN_YEAR))
          {
-            if(day <= Month.DAYS_ODD)
+            if(month == Month.JAN || month == Month.MAR ||
+               month == Month.MAY || month == Month.JUL ||
+               month == Month.AUG || month == Month.OCT || month == Month.DEC)
+            {
+               if(day <= Month.DAYS_ODD)
+                  return true;
+            }
+            else if(month == Month.APR || month == Month.JUN ||
+                    month == Month.SEP || month == Month.NOV)
+            {
+               if(day <= Month.DAYS_EVEN)  
+                  return true;
+            }
+            else if(month == Month.FEB && day <= Month.DAYS_FEB)
+            {
+               return true;
+            }
+            else if((year % Month.QUADRENNIAL) == 0 && (year % Month.CENTENNIAL)
+                    != 0 || (year % Month.CENTENNIAL == 0) && 
+                    (year % Month.QUATERCENTENNIAL == 0))
                return true;
          }
-         else if(month == Month.APR || month == Month.JUN ||
-                 month == Month.SEP || month == Month.NOV)
-         {
-            if(day <= Month.DAYS_EVEN)  
-               return true;
-         }
-         else if(month == Month.FEB && day <= Month.DAYS_FEB)
-         {
-            return true;
-         }
-         else if((year % Month.QUADRENNIAL) == 0 && (year % Month.CENTENNIAL)
-                 != 0 || (year % Month.CENTENNIAL == 0) && 
-                 (year % Month.QUATERCENTENNIAL == 0))
-            return true;
+         return false;  
       }
-      return false;         
+      return false;
    }
    
    /**
