@@ -6,7 +6,7 @@
 public class MoneyMarket extends Account
 {
    private static final int FEE = 12;
-   private static final double APY = .65;
+   private static final double APY = .0065;
    private static final double MIN_BAL = 2500;   
    private static final int WITHDRAW_LIMIT = 6;
    private int withdrawals;
@@ -56,27 +56,25 @@ public class MoneyMarket extends Account
     */
    public void applyInterestAndFee()
    {
-      if(balance > 0)
-      {
-         if(balance < MIN_BAL)
+         if(balance < MIN_BAL || withdrawals > WITHDRAW_LIMIT)
          {
             balance -= FEE;
          }
          balance = balance + (balance * APY) / MONTH_PER_YEAR;
-      }
    }
    
    /**
     * increases the number of withdrawals
     * @return true if the number is below the limit, false if not.
     */
-   public boolean incrementWithdrawals()
+   public void incrementWithdrawals()
    {
       withdrawals++;
-      if(withdrawals <= WITHDRAW_LIMIT)
-         return true;
-      withdrawals--;
-      return false;
+   }
+   
+   public boolean withdawalsAvailable()
+   {
+      return withdrawals <= WITHDRAW_LIMIT;      
    }
 
     /**

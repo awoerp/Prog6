@@ -201,15 +201,5 @@ public class BankDataBase
       }
       return accountsLessThanDate;
    }
-   
 
-   
-   public boolean moneyMarketWithdrawals(MoneyMarket a)
-   {
-      if(a.incrementWithdrawals())
-      {
-         return true;
-      }
-      return false;
-   }
 }

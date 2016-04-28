@@ -6,7 +6,7 @@
 public class Checking extends Account 
 {
    private static final int FEE = 25;
-   private static final double APY = .05;
+   private static final double APY = .0005;
    private static final double MIN_BAL = 1500;
    private boolean directDeposit; //no fees if this is true
    
@@ -57,8 +57,6 @@ public class Checking extends Account
     */
    public void applyInterestAndFee()
    {
-      if(balance > 0)
-      {
          if(!directDeposit)
          {
             if(balance < MIN_BAL)
@@ -67,7 +65,6 @@ public class Checking extends Account
             }
          }
          balance = balance + (balance * APY) / MONTH_PER_YEAR;
-      }
    }
 
    /**
